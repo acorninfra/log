@@ -1,0 +1,10 @@
+.DS_Store
+
+/clion/
+/.idea/
+
+/out/
+/arm/
+/arm64/
+/x86/
+/x64/

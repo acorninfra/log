@@ -1,0 +1,9 @@
+[submodule "third_party/mars"]
+	path = third_party/mars
+	url = git@github.com:Tencent/mars.git
+[submodule "third_party/spdlog"]
+	path = third_party/spdlog
+	url = git@github.com:gabime/spdlog.git
+[submodule "third_party/fmt"]
+	path = third_party/fmt
+	url = git@github.com:fmtlib/fmt.git

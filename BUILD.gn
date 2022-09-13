@@ -1,0 +1,66 @@
+config("minimal_size_build") {
+  cflags_cc = [
+    "-fno-exceptions",
+    "-fno-rtti",
+  ]
+}
+
+config("new_build") {
+  cflags_cc = [
+    "-std=c++17",
+    "-fvisibility=hidden",
+  ]
+}
+
+config("fmt_build") {
+  include_dirs = [ "third_party/fmt/include" ]
+  defines = [
+    "FMT_EXPORT",
+    "FMT_SHARED",
+  ]
+}
+
+source_set("fmt_source") {
+  configs = [
+    ":minimal_size_build",
+    ":fmt_build",
+    ":new_build",
+  ]
+  sources = [ "third_party/fmt/src/format.cc" ]
+}
+
+source_set("spdlog_source") {
+  configs = [
+    ":minimal_size_build",
+    ":new_build",
+    ":fmt_build",
+  ]
+  include_dirs = [ "third_party/spdlog/include" ]
+  defines = [
+    "SPDLOG_NO_EXCEPTIONS",
+    "SPDLOG_COMPILED_LIB",
+    "SPDLOG_SHARED_LIB",
+    "SPDLOG_FMT_EXTERNAL",
+  ]
+  sources = [
+    "third_party/spdlog/src/async.cpp",
+    "third_party/spdlog/src/cfg.cpp",
+    "third_party/spdlog/src/color_sinks.cpp",
+    "third_party/spdlog/src/file_sinks.cpp",
+    "third_party/spdlog/src/spdlog.cpp",
+    "third_party/spdlog/src/stdout_sinks.cpp",
+  ]
+}
+
+if (target_os == "android") {
+  shared_library("spdlog") {
+    libs = [
+      "c++",
+      "m",
+    ]
+    deps = [
+      ":fmt_source",
+      ":spdlog_source",
+    ]
+  }
+}
