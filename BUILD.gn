@@ -32,9 +32,9 @@ source_set("fmt_source") {
 source_set("spdlog_source") {
   configs = [
     ":minimal_size_build",
-    ":new_build",
     ":fmt_build",
   ]
+  cflags_cc = [ "-std=c++17" ]
   include_dirs = [ "third_party/spdlog/include" ]
   defines = [
     "SPDLOG_NO_EXCEPTIONS",
