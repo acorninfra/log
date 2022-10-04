@@ -24,7 +24,6 @@ config("glog_build") {
   include_dirs = [
     "third_party/include",
     "third_party/include/glog",
-    "third_party/glog/src",
   ]
   defines = [
     "DISABLE_RTTI",
